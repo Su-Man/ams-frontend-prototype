@@ -5,9 +5,12 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppSidebar } from "@/components/layout/AppSidebar";
+import SemanticSearchView from "./pages/SemanticSearchView";
+import UserGuide from "./pages/UserGuide";
 import Dashboard from "./pages/Dashboard";
 import Upload from "./pages/Upload";
 import NotFound from "./pages/NotFound";
+import ScheduleUploadFolder from "@/pages/schedule-upload-folder";
 
 const queryClient = new QueryClient();
 
@@ -35,10 +38,12 @@ const App = () => (
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/upload" element={<Upload />} />
                   <Route path="/calls" element={<Dashboard />} />
-                  <Route path="/search" element={<Dashboard />} />
+                  <Route path="/search" element={<SemanticSearchView />} />
                   <Route path="/analytics" element={<Dashboard />} />
-                  <Route path="/settings" element={<Dashboard />} />
+                  <Route path="/settings" element={<Dashboard />} /> 
+                  <Route path="/guide" element={<UserGuide />} />
                   <Route path="*" element={<NotFound />} />
+                  <Route path="/schedule-upload-folder" element={<ScheduleUploadFolder />} />
                 </Routes>
               </main>
             </div>

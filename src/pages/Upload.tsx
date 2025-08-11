@@ -1,10 +1,23 @@
+"use client";
+
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { UploadZone } from "@/components/upload/UploadZone";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import ScheduleUploadFolder from "@/pages/schedule-upload-folder";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 import { Settings, HelpCircle, Zap } from "lucide-react";
 
 export default function Upload() {
+  const navigate = useNavigate();
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -15,10 +28,23 @@ export default function Upload() {
             Upload your call recordings for AI-powered analysis and insights
           </p>
         </div>
-        <Button variant="outline" className="flex items-center gap-2">
-          <Settings className="w-4 h-4" />
-          Processing Settings
-        </Button>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="flex items-center gap-2">
+              <Settings className="w-4 h-4" />
+              Upload Mode
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => navigate("/upload")}>
+              Direct Analysis
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate("/schedule-upload-folder")}>
+              Schedule Analysis
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
@@ -38,53 +64,23 @@ export default function Upload() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
+              {[
+                ["Audio Processing", "Noise reduction & segmentation"],
+                ["Speaker Diarization", "Identify different speakers"],
+                ["Transcription", "Speech-to-text conversion"],
+                ["Sentiment Analysis", "Emotion & sentiment detection"],
+                ["LLM Summary", "AI-generated insights"],
+              ].map(([title, desc], index) => (
+                <div className="flex items-center gap-3" key={title}>
                   <div className="w-6 h-6 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-bold">
-                    1
+                    {index + 1}
                   </div>
                   <div>
-                    <p className="text-sm font-medium">Audio Processing</p>
-                    <p className="text-xs text-muted-foreground">Noise reduction & segmentation</p>
+                    <p className="text-sm font-medium">{title}</p>
+                    <p className="text-xs text-muted-foreground">{desc}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-bold">
-                    2
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium">Speaker Diarization</p>
-                    <p className="text-xs text-muted-foreground">Identify different speakers</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-bold">
-                    3
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium">Transcription</p>
-                    <p className="text-xs text-muted-foreground">Speech-to-text conversion</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-bold">
-                    4
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium">Sentiment Analysis</p>
-                    <p className="text-xs text-muted-foreground">Emotion & sentiment detection</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-primary/20 text-primary text-xs flex items-center justify-center font-bold">
-                    5
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium">LLM Summary</p>
-                    <p className="text-xs text-muted-foreground">AI-generated insights</p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </CardContent>
           </Card>
 
@@ -98,9 +94,15 @@ export default function Upload() {
                 <div>
                   <p className="font-medium text-foreground">Formats</p>
                   <div className="space-y-1">
-                    <Badge variant="outline" className="text-xs">MP3</Badge>
-                    <Badge variant="outline" className="text-xs">WAV</Badge>
-                    <Badge variant="outline" className="text-xs">M4A</Badge>
+                    <Badge variant="outline" className="text-xs">
+                      MP3
+                    </Badge>
+                    <Badge variant="outline" className="text-xs">
+                      WAV
+                    </Badge>
+                    <Badge variant="outline" className="text-xs">
+                      M4A
+                    </Badge>
                   </div>
                 </div>
                 <div>

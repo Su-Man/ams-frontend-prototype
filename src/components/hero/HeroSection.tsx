@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Upload, Play, BarChart3 } from "lucide-react";
+import { Upload, Play } from "lucide-react";
 import heroImage from "@/assets/hero-audio-ai.jpg";
+import { useNavigate } from "react-router-dom";
 
 export function HeroSection() {
+  const navigate = useNavigate();
+
   return (
     <div className="relative overflow-hidden rounded-2xl">
       {/* Background Image with Overlay */}
@@ -30,13 +33,22 @@ export function HeroSection() {
             and intelligent summaries.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="gradient-primary hover-glow">
+            <Button 
+              size="lg" 
+              className="gradient-primary hover-glow"
+              onClick={() => navigate("/upload")}  // <-- Navigate to Upload Calls
+            >
               <Upload className="w-5 h-5 mr-2" />
               Start Analyzing
             </Button>
-            <Button size="lg" variant="outline" className="glass-card">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="glass-card"
+              onClick={() => navigate("/guide")}  // <-- Navigate to User Guide
+            >
               <Play className="w-5 h-5 mr-2" />
-              Watch Demo
+              Go to User Guide
             </Button>
           </div>
           
